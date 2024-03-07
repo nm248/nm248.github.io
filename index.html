@@ -34,7 +34,8 @@
     <canvas id="renderCanvas" touch-action="none"></canvas>
     <!-- touch-action="none" for best results from PEP -->
 
-    <script>
+    <script type="module">
+      import HavokPhysics from "https://cdn.babylonjs.com/havok/HavokPhysics_es.js";
       const canvas = document.getElementById("renderCanvas"); // Get the canvas element
       const engine = new BABYLON.Engine(canvas, true); // Generate the BABYLON 3D engine
 
