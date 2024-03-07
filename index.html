@@ -45,11 +45,11 @@ var createScene = function () {
    camera.attachControl(canvas, true);
    var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
    light.intensity = 0.7;
-   var hk = new BABYLON.HavokPlugin();
+   const havokInstance = await HavokPhysics();
+   const hk = new BABYLON.HavokPlugin(true, havokInstance);
    scene.enablePhysics(new BABYLON.Vector3(0, -9.8, 0), hk);
    var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 200, height: 200}, scene);
    var groundAggregate = new BABYLON.PhysicsAggregate(ground, BABYLON.PhysicsShapeType.BOX, { mass: 0 }, scene);
-
 
    var rowLength = 5;
    var cubeSize = 1;
@@ -66,12 +66,10 @@ var createScene = function () {
        }
    }
 
-
    var sphere = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2, segments: 32 }, scene);
    sphere.position.y = 4;
    sphere.position.z = -40;
    var sphereAggregate = new BABYLON.PhysicsAggregate(sphere, BABYLON.PhysicsShapeType.SPHERE, { mass: 10, restitution: 0.75 }, scene);
-
 
    scene.onPointerDown = function () {
        sphereAggregate.body.applyImpulse(
