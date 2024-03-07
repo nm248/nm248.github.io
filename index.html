@@ -44,7 +44,7 @@ HavokPhysics().then((havok) => {
   havokInstance = havok;
 });
       
-async createScene = function () {
+async function createScene() {
    var scene = new BABYLON.Scene(engine);
    var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -50), scene);
    camera.setTarget(BABYLON.Vector3.Zero());
@@ -83,10 +83,9 @@ async createScene = function () {
            sphere.absolutePosition
        );
    }
-
-
+  
    return scene;
-};
+}
 
       const scene = createScene(); //Call the createScene function
 
