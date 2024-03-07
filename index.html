@@ -38,10 +38,10 @@
       const canvas = document.getElementById("renderCanvas"); // Get the canvas element
       const engine = new BABYLON.Engine(canvas, true); // Generate the BABYLON 3D engine
 
-let havokInstance;
-HavokPhysics().then((havok) => {
-  havokInstance = havok;
-});
+      let havokInstance;
+      HavokPhysics().then((havok) => {
+        havokInstance = havok;
+      });
       
 //  ************************************** START EDITING AFTER THIS LINE ************************************
       
@@ -97,9 +97,11 @@ const createScene = async function () {
           }
         });
       });
+      
       window.addEventListener("resize", function () {
         engine.resize();
       });
+      
     </script>
   </body>
 </html>
