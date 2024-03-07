@@ -38,6 +38,11 @@
       const canvas = document.getElementById("renderCanvas"); // Get the canvas element
       const engine = new BABYLON.Engine(canvas, true); // Generate the BABYLON 3D engine
 
+let havokInstance;
+HavokPhysics().then((havok) => {
+  havokInstance = havok;
+});
+      
 var createScene = function () {
    var scene = new BABYLON.Scene(engine);
    var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -50), scene);
@@ -45,7 +50,6 @@ var createScene = function () {
    camera.attachControl(canvas, true);
    var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
    light.intensity = 0.7;
-   const havokInstance = await HavokPhysics();
    const hk = new BABYLON.HavokPlugin(true, havokInstance);
    scene.enablePhysics(new BABYLON.Vector3(0, -9.8, 0), hk);
    var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 200, height: 200}, scene);
