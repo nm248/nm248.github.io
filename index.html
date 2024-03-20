@@ -45,47 +45,47 @@
       
 //  ************************************** START EDITING AFTER THIS LINE ************************************
       
-const createScene = async function () {
-   var scene = new BABYLON.Scene(engine);
-   var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -50), scene);
-   camera.setTarget(BABYLON.Vector3.Zero());
-   camera.attachControl(canvas, true);
-   var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
-   light.intensity = 0.7;
-        const havokInstance = await HavokPhysics();
-        const hk = new BABYLON.HavokPlugin(true, havokInstance);
-        scene.enablePhysics(new BABYLON.Vector3(0, -9.8, 0), hk);
-   var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 200, height: 200}, scene);
-   var groundAggregate = new BABYLON.PhysicsAggregate(ground, BABYLON.PhysicsShapeType.BOX, { mass: 0 }, scene);
+  const createScene = async function () {
+  var scene = new BABYLON.Scene(engine);
+  var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -50), scene);
+  camera.setTarget(BABYLON.Vector3.Zero());
+  camera.attachControl(canvas, true);
+  var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
+  light.intensity = 0.7;
+  const havokInstance = await HavokPhysics();
+  const hk = new BABYLON.HavokPlugin(true, havokInstance);
+  scene.enablePhysics(new BABYLON.Vector3(0, -9.8, 0), hk);
+  var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 200, height: 200}, scene);
+  var groundAggregate = new BABYLON.PhysicsAggregate(ground, BABYLON.PhysicsShapeType.BOX, { mass: 0 }, scene);
 
-   var rowLength = 5;
-   var cubeSize = 1;
-   var gap = 0.5;
-   for (var i = 0; i < 20; i++) {
-       for (var j = 0; j < rowLength; j++) {
-           for (var k = 0; k < rowLength; k++) {
-               var cube = BABYLON.MeshBuilder.CreateBox("cube" + i, { size: cubeSize }, scene);
-               cube.position.x = -20 + (cubeSize + gap) * i;
-               cube.position.y = 3 + (cubeSize + gap) * j;
-               cube.position.z = (cubeSize + gap) * k;
-               new BABYLON.PhysicsAggregate(cube, BABYLON.PhysicsShapeType.BOX, { mass: 1 }, scene);
-           }
-       }
+  var rowLength = 5;
+  var cubeSize = 1;
+  var gap = 0.5;
+  for (var i = 0; i < 20; i++) {
+    for (var j = 0; j < rowLength; j++) {
+      for (var k = 0; k < rowLength; k++) {
+        var cube = BABYLON.MeshBuilder.CreateBox("cube" + i, { size: cubeSize }, scene);
+        cube.position.x = -20 + (cubeSize + gap) * i;
+        cube.position.y = 3 + (cubeSize + gap) * j;
+        cube.position.z = (cubeSize + gap) * k;
+        new BABYLON.PhysicsAggregate(cube, BABYLON.PhysicsShapeType.BOX, { mass: 1 }, scene);
+      }
+    }
    }
 
-   var sphere = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2, segments: 32 }, scene);
-   sphere.position.y = 4;
-   sphere.position.z = -40;
-   var sphereAggregate = new BABYLON.PhysicsAggregate(sphere, BABYLON.PhysicsShapeType.SPHERE, { mass: 10, restitution: 0.75 }, scene);
+  var sphere = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2, segments: 32 }, scene);
+  sphere.position.y = 4;
+  sphere.position.z = -40;
+  var sphereAggregate = new BABYLON.PhysicsAggregate(sphere, BABYLON.PhysicsShapeType.SPHERE, { mass: 10, restitution: 0.75 }, scene);
 
-   scene.onPointerDown = function () {
-       sphereAggregate.body.applyImpulse(
-           new BABYLON.Vector3(0, 10, 1000),
-           sphere.absolutePosition
-       );
-   }
+  scene.onPointerDown = function () {
+    sphereAggregate.body.applyImpulse(
+      new BABYLON.Vector3(0, 10, 1000),
+      sphere.absolutePosition
+    );
+  }
   
-   return scene;
+  return scene;
 };
 
 //  ************************************** DO NOT EDIT BELOW THIS LINE ************************************
